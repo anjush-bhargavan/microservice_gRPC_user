@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package pbU;
+
+option go_package = "./";
+
+service UserService {
+    rpc UserSignup(UserCreate) returns(Response);
+    rpc UserLogin(LoginRequest) returns(Response);
+    rpc CreateUser(UserCreate) returns (CommonResponse);
+    rpc EditUser(UserCreate) returns (UserCreate);
+    rpc FindAllUsers(FetchAll) returns (Users);
+    rpc DeleteUser(ID) returns (CommonResponse);
+    rpc FindUserByID(ID) returns (UserDetail);
+    rpc FindUserByEmail(Email) returns (UserDetail);
+
+}
+
+message FetchAll{}
+
+message UserCreate {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+    string role = 4;
+}
+
+message UserDetail {
+    uint32 id = 1;
+    string username = 2;
+    string email = 3;
+    string password = 4;
+    string role = 5;
+}
+
+message Users {
+    repeated UserDetail userlist = 1;
+}
+
+message CommonResponse {
+    string status = 1;
+    string error = 2;
+    string message = 3;
+}
+
+message Email {
+    string email = 1;
+}
+
+message ID {
+    uint32 id = 1;
+}
+
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+    string role = 3;
+}
+
+message Response {
+    string status = 1;
+    string error = 2; 
+    string message = 3;
+}
